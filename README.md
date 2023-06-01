@@ -402,9 +402,168 @@ If is countable then we can enumerate, eg, the set of all real numbers between 0
 
 # Lecture 2
 
+## Terminology Review: Sets
+
+> **A Set**
+> $$
+> S = \{3, l, 20, \text{{green}}, \delta\}
+> $$
+>
+> - Objects in a set: elements / Members
+
+> **Membership / Non-Membership**
+> $$
+> \alpha \in S, \quad \beta \notin S
+> $$
+
+> **Empty Set**
+> $$
+> \emptyset
+> $$
+
+> **Singleton Set** 
+>
+> - Set with exactly one pair 
+
+> **Unordered Pair**
+>
+> - Set with exactly two members
+
+## Terminology Review: Set Operations
+
+- Union of sets A and B: 
+
+$$
+A \cup B = \{x|x \in A \text{ or } x \in B\}
+$$
+
+
+
+- Intersection of sets A and B:
+
+$$
+A \cap B = \{x|x \in A \text{ and } x \in B\}
+$$
+
+
+
+- Complement of set A: $$
+
+$$
+A' = \{x|x \notin A\}
+$$
+
+
+
+- Set difference of sets A and B:
+
+$$
+A \setminus B = \{x \in A : x \notin B\}
+$$
+
+
+
+## More terminology: Powerset
+
+- Powerset P(A) of set A: Set of all subsets of A
+
+$$
+P(A) = \{S|S \subseteq A\} \quad \text{Note that} \quad \emptyset \in P(A)
+$$
+
+
+
+## Alphabets, Languages, Strings, Symbols
+
+Terminology to describe and work with finite automata and more:
+
+- An **alphabet Σ** is a **finite** set of **symbols**
+  - For example, the binary alphabet is {0,1} or the Roman/Latin alphabet
+- A **string** over an alphabet Σ is a finite sequence of symbols from Σ
+  - 0001 is a string over alphabet {0,1}
+- The **empty string** ε is the string with no symbols
+
+## Alphabets, Languages, Strings, Symbols (2)
+
+- The set of all strings over an alphabet is denoted Σ*
+- Note: ε ∈ Σ*, i.e., ε is a string over any alphabet
+- Example: Let Σ = {a,b}. Then Σ* = {ε, a, b, aa, ab, ba, bb, aaa, aab, aba, abb, baa, bab, bba, bbb, …}
+
+## Alphabets, Languages, Strings, Symbols (3)
+
+- The length |w| of a string w ∈ Σ* is the number of symbols of w when considered as a sequence
+- For example, length of the empty string ε: |ε| = 0
+- For a string w = ab, |w| = 2
+- For a string w ∈ Σ*, the symbol in the ith position of w is denoted wi. We say that wi occurs in position i of w
+- Note that a symbol may occur more than once in the same string. For example, for w = aba, w2 = b.
+
+## Alphabets, Languages, Strings, Symbols (4)
+
+#### Operations and relations on strings
+
+- Concatenation for strings x and y yields string xy
+- Concatenation is an associative operation: xyz := (xy)z = x(yz)
+- For example, for Σ = {a, b, c} , if x = ab, y = bac, and z = bba : xyz = abbacbba
+
+## Alphabets, Languages, Strings, Symbols (5)
+
+#### More operations and relations on strings
+
+- String v is a substring of string w if and only if there are strings x and y such that w = xvy
+- If y = ε then w = xv and v is a suffix of w
+- If x = ε then w = vy and v is a prefix of w
+- For example, if w = abbacbba then:
+  - cbba is a suffix of w
+  - abb is a prefix of w
+
+------
+
+## Alphabets, Languages, Strings, Symbols (6)
+
+#### And more operations and relations on strings
+
+- A string written backwards is denoted w^R and called the reversal of w
+- For example, If w = abbacbba then w^R = abbcabba
+
+## Didn’t we say we wanted to study problems and their solutions?
+
+## Examples: Yes-No-Problems and their Languages
+
+## Languages / Yes/No problems: How many are there?
+
+## How large is Sigma*?
+
+## How large is the set of all languages over Sigma?
+
+## The Powerset of sigma star equals ?
+
+## Powerset of the Natural Numbers is uncountable
+
+## How large is the set of all languages?
+
+## So far
+
+## Next up: Finite Automata and Regular languages
+
+## Automata Theory
+
+## Finite Automata & Regular Languages
+
+## Finite Automata
+
+## Finite Automata in Practice
+
+## Other Applications of Finite Automata
+
+## Abstract Description of the Finite Automaton
+
+## State Diagram
+
+## Formal Definition of Deterministic Finite Automaton
+
 # Lecture 3
 
 # Lecture 4
 
-
+# Lecture 5
 
