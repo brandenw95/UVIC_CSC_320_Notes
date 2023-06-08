@@ -100,8 +100,6 @@ To accommodate for potential difficulties keeping deadlines such as illness, not
 >
 > There are 2 midterms. Everyone can miss up to one midterm. The weight of the missed midterm will be added onto the weight of the final exam. For another missed midterm, a grade of 0 will be assigned.
 
-# Lecture 1
-
 ## Lectures & Tutorials
 
 - **Lectures** are taught in-person
@@ -400,8 +398,6 @@ If is countable then we can enumerate, eg, the set of all real numbers between 0
 
 ![image-20230517224632696](assets/image-20230517224632696.png)
 
-# Lecture 2
-
 ## Terminology Review: Sets
 
 > **A Set**
@@ -561,9 +557,52 @@ Terminology to describe and work with finite automata and more:
 
 ## Formal Definition of Deterministic Finite Automaton
 
-# Lecture 3
 
-# Lecture 4
 
-# Lecture 5
+# Major Topics (Midterm 1)
 
+## Countable vs  Uncountable
+
+## Deterministic Finite Automaton (DFA)
+
+### DFA state minimization
+
+## Non-deterministic Finite Automata (NFA)
+
+### Equivalence of NFAs and DFAs
+
+## Reductions
+
+## Regular languages 
+
+### Closure properties of regular languages
+
+### Regular languages are closed under concatenation
+
+## Non-regular languages
+
+## Regular Expressions 
+
+### The languages of regular expressions are exactly the regular languages
+
+## Pumping Lemma
+
+### PL for Regular Languages
+
+### PL for Non-regular Languages 
+
+## Context-free Languages and grammars
+
+### Context-free grammars
+
+#### Ambiguous grammars
+
+### Context-free languages
+
+#### Inherently ambiguous languages
+
+### Pushdown Automata
+
+### Chomsky Normal Form
+
+### Pumping Lemma for context-free languages
