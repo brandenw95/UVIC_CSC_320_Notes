@@ -559,7 +559,7 @@ Terminology to describe and work with finite automata and more:
 
 
 
-# Major Topics (Midterm 1)
+# Major Topics (Midterm 1 Study Review)
 
 ## Countable vs  Uncountable
 
