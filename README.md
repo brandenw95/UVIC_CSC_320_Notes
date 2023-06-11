@@ -523,43 +523,198 @@ Terminology to describe and work with finite automata and more:
 
 ## Didn’t we say we wanted to study problems and their solutions?
 
+- A (decision or yes/no) problem is a mapping from a set of problem instances to Yes/No (called yes-instances and no-instances)
+- Languages: abstract representation of problems
+- For a problem Π, the associated language LΠ is
+
+$$
+LΠ = \{x \in \Sigma^* \, | \, x \text{ is a yes-instance of } \Pi\}
+$$
+
 ## Examples: Yes-No-Problems and their Languages
+
+#### Sorted sequence
+
+- **Input**:  A list of n comparable elements e_1, e_2, ..., e_n
+- **Question**: Are the elements, as given, in sorted order? That is: is it true that e_1 <= e_2 <= .. <= e_n?
+
+L_SORTED SEQUENCE = {list of comparable elements L | the elements of L are in sorted order}
+
+#### Connected Graph
+
+- **Input**: A simple, undirected graph G = (V, E)
+- **Question**: Is G connected? That is: for any pair of vertices x, y ∈ V, does there exists a path from x to y in G?
+
+L_CONNECTED GRAPH = {G = (V, E) | G is a simple, undirected connected graph}
+
+#### Short Spanning Tree
+
+- **Input**: A simple, undirected, edge-weighted graph G = (V, E) where each edge e ∈ E is assigned a positive integer weight w(e), an integer k
+- **Output**: Does there exist a spanning tree T = (V, ET) for G where T has weight at most k? That is: T is a tree, ET ⊆ E, and
+
+$$
+\sum_{e \in E_T} w(e) \leq k
+$$
+
+L_SHORT SPANNING TREE = {(G = (V, E), k) | k is a positive integer and G is a
+simple, undirected, edge-weighted graph has a spanning tree of weight at most k}
 
 ## Languages / Yes/No problems: How many are there?
 
-## How large is Sigma*?
+- To figure this out, since the set of all languages over an alphabet is defined as the set of all subsets of , first Σ 
+- Determine the size of Σ* for any alphabet Σ
+
+## How large is the entire alphabet?
+
+Claim: Σ* is countably infinite (and therefore countable)
+Proof for Σ = {0,1}:
+
+| N    | Σ*   |
+| ---- | ---- |
+| 0    | ε    |
+| 1    | 0    |
+| 2    | 1    |
+| 3    | 00   |
+| 4    | 01   |
+| 5    | 10   |
+| 6    | 11   |
+| ...  | ...  |
 
 ## How large is the set of all languages over Sigma?
 
+-  Recall: Σ* is countably infinite (and therefore countable) 
+
+- and: Languages are subsets of Σ*
+- Then the set of all languages over alphabet Σ is the set of all subsets of
+  Σ*
+
+$$
+\mathcal{P}(\Sigma^*)
+$$
+
+- For every language L: L is countably infinite or finite
+- How large is the set of all languages over alphabet Σ?
+
+$$
+\left| \mathcal{P}(\Sigma^*) \right|
+$$
+
+
+
 ## The Powerset of sigma star equals ?
+
+- Idea: Show that powerset of any countably infinite set is uncountable
+- This would imply that the powerset of P(Σ*) is uncountable
+
+> - Recall: Any countably infinite set has a bijection with ℕ, that is Σ* has a bijection with ℕ
+> - Therefore, if we show that P(ℕ) is uncountable then we know that P(Σ*) is uncountable, ie uncountably infinite
 
 ## Powerset of the Natural Numbers is uncountable
 
+![image-20230611161409223](assets/image-20230611161409223.png)
+
 ## How large is the set of all languages?
 
-## So far
+We recap:
 
-## Next up: Finite Automata and Regular languages
+- Since
+  P(ℕ) is uncountably infinite, the powerset of any countably infinite set is uncountable
+- Since the set of all languages is the powerset of Σ*, the set of all languages is uncountable
 
-## Automata Theory
+# Finite Automata & Regular Languages
 
-## Finite Automata & Regular Languages
+- Understanding computability requires
+  - Model(s) of computer that capture(s) its computational power
+- Most simple model
+- **Finite state machine** or **finite automaton**
+- Model of computation with **finite amount of memory**, independent of problem size
 
 ## Finite Automata
 
+- Finite automata are all around us! Example: electromechanical devices
+- Controller of an automatic door
+
+![image-20230611162028398](assets/image-20230611162028398.png)
+
 ## Finite Automata in Practice
+
+- Automatic door controller: a finite automaton/computer with just a single bit of memory that records which of the two states the controller is in (closed or open)
+- Many other common devices have controllers with somewhat larger memories
+- **Elevator controller** 
+  - state represents floor elevator is on 
+  - inputs: signals received from the buttons 
+- **Controllers for various household appliances**
+  - dishwashers, electronic thermostats, parts of simple digital watches and simple calculators
 
 ## Other Applications of Finite Automata
 
+- Pattern recognition
+
+- Speech recognition
+- Optical character recognition
+- Compilers
+- A (probabilistic) relative of the finite automaton: Markov chain
+
 ## Abstract Description of the Finite Automaton
+
+- **State diagrams:** used to describe finite automata
+- Formal Definition: **Deterministic finite automaton**
 
 ## State Diagram
 
+![image-20230611163119525](assets/image-20230611163119525.png)
+
+![image-20230611163136180](assets/image-20230611163136180.png)
+
 ## Formal Definition of Deterministic Finite Automaton
+
+![image-20230611163653001](assets/image-20230611163653001.png)
+
+## L+ vs L*
+
+- Σ = {a, b, c} 
+- L = {a, bc} 
+- L* = represents the Kleene star operation applied to L, which means it includes all possible concatenations and repetitions of strings from L, including the empty string. In this case, L* would include the strings "", "a", "bc", "aa", "abc", "bca", "bcbc", "aaabc", and so on.
+- L+ =  represents the positive closure operation applied to L, which means it includes all possible concatenations and repetitions of strings from L, excluding the empty string. In this case, L+ would include the strings "a", "bc", "aa", "abc", "bca", "bcbc", "aaabc", and so on.
+
+> **Note:** 
+>
+> - L* includes the empty string
+>
+> - L+ does not include the empty string.
+
+
 
 
 
 # Major Topics (Midterm 1 Study Review)
+
+## Checklist
+
+- [ ] Countable vs  Uncountable
+- [ ] Deterministic Finite Automaton (DFA)
+- [ ] DFA state minimization
+- [ ] Non-deterministic Finite Automata (NFA)
+- [ ] Equivalence of NFAs and DFAs
+- [ ] Reductions
+- [ ] Regular languages 
+- [ ] Closure properties of regular languages
+- [ ] Regular languages are closed under concatenation
+- [ ] Non-regular languages
+- [ ] Regular Expressions 
+- [ ] The languages of regular expressions are exactly the regular languages
+- [ ] Pumping Lemma
+- [ ] PL for Regular Languages
+- [ ] PL for Non-regular Languages 
+- [ ] Context-free Languages and grammars
+- [ ] Context-free grammars
+- [ ] Ambiguous grammars
+- [ ] Context-free languages
+- [ ] Inherently ambiguous languages
+- [ ] Pushdown Automata
+- [ ] Chomsky Normal Form
+- [ ] Pumping Lemma for context-free languages
+
 
 ## Countable vs  Uncountable
 
@@ -606,3 +761,40 @@ Terminology to describe and work with finite automata and more:
 ### Chomsky Normal Form
 
 ### Pumping Lemma for context-free languages
+
+
+
+## DFA, NFA and PSA Tuples
+
+$$
+DFA = (Q, \Sigma, \delta, q_0, F)
+$$
+
+$$
+NFA = (Q, \Sigma, \delta, q_0, F)
+$$
+
+$$
+PSA =(Q, \Sigma, \Gamma, \delta, q_0, Z, F)
+$$
+
+
+
+| Topic                                    | Overview                                                     | Cheat Sheet                                                  |
+| ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Countable vs. Uncountable                | Countable sets have the same cardinality as the natural numbers, while uncountable sets have a higher cardinality. | - Countable sets: Integers, rational numbers.<br> - Uncountable sets: Real numbers, power set of natural numbers. |
+| Deterministic Finite Automaton (DFA)     | A DFA is a finite state machine where each transition is uniquely determined by the current state and input symbol. | - Formal Definition: 5-tuple (Q, Σ, δ, q0, F).<br> - DFA Diagram: Graph representation of states and transitions. |
+| DFA State Minimization                   | DFA state minimization reduces the number of states in a DFA while preserving the language it recognizes. | - Hopcroft's Algorithm: Minimize DFA using partitioning of states.<br> - Merge equivalent states to reduce DFA size. |
+| Non-deterministic Finite Automaton (NFA) | An NFA is a finite state machine allowing multiple possible transitions for a given state and input symbol. | - Formal Definition: 5-tuple (Q, Σ, δ, q0, F).<br> - NFA Diagram: Graph representation with ε-transitions. |
+| Equivalence of NFAs and DFAs             | NFAs and DFAs recognize the same class of languages; every NFA has an equivalent DFA that recognizes the same language. | - Subset Construction: Convert NFA to DFA.<br> - Determinization: Transform NFA to an equivalent DFA. |
+| Reductions                               | Reductions establish the computational complexity of problems by mapping instances of one problem to another. | - Polynomial Time Reductions: Mapping instances of one problem to another in polynomial time. |
+| Regular Languages                        | Regular languages are recognized by finite automata (DFA/NFA) and generated by regular expressions. | - Closure Properties: Union, concatenation, Kleene star.<br> - Regular Operations: Combining regular languages. |
+| Non-regular Languages                    | Non-regular languages cannot be recognized by finite automata (DFA/NFA) or described by regular expressions. | - Examples: The language of balanced parentheses.<br> - Non-regular languages require more powerful machines. |
+| Regular Expressions                      | Regular expressions are a concise way to describe regular languages using symbols and operators. | - Operators: Union (                                         |
+| Pumping Lemma                            | The Pumping Lemma is a tool to prove that certain languages are not regular by finding contradictions. | - For Regular Languages: Show pumping length, split strings, and prove the contradiction.<br> - For Non-regular Languages: Find a contradiction using the properties of regular languages. |
+| Context-free Languages and Grammars      | Context-free languages are recognized by pushdown automata (PDA) and described by context-free grammars (CFGs). | - CFGs: Rules with non-terminals and terminals to generate strings.<br> - PDAs: Extended finite automata with a stack. |
+| Ambiguous Grammars                       | Ambiguous grammars have multiple parse trees for a single string, leading to ambiguity in the language's structure. | - Ambiguity Resolution: Modify grammar rules or use precedence/associativity rules to resolve ambiguity. |
+| Inherently Ambiguous Languages           | Inherently ambiguous languages cannot be represented by any unambiguous grammar, regardless of its complexity. | - Examples: Language of arithmetic expressions.<br> - These languages have inherent structural ambiguity. |
+| Pushdown Automata (PDA)                  | PDAs extend finite automata with a stack for memory, enabling the recognition of context-free languages. | - Formal Definition: 7-tuple (Q, Σ, Γ, δ, q0, Z, F).<br> - Stack Operations: Push, pop, and peek. |
+| Chomsky Normal Form                      | Chomsky Normal Form is a standard form for context-free grammars where all production rules have specific forms. | - Each production rule is either A → BC or A → a, where A, B, and C are non-terminals, and a is a terminal. |
+| Pumping Lemma for Context-free Languages | The Pumping Lemma for context-free languages is used to prove that certain languages are not context-free. | - Split strings into uvwxy, show how to pump, and find a contradiction.<br> - Context-free languages have restrictions on pumping. |
