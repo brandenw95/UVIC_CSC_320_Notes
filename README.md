@@ -764,6 +764,10 @@ We recap:
 
 
 
+# Quick Reference / Cheat Sheet
+
+
+
 ## DFA, NFA and PSA Tuples
 
 $$
@@ -777,6 +781,8 @@ $$
 $$
 PSA =(Q, \Sigma, \Gamma, \delta, q_0, Z, F)
 $$
+
+## Topics / Definitions
 
 
 
