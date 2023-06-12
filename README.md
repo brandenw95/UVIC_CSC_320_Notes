@@ -792,31 +792,248 @@ Answer: yes
 
 #### Intersection
 
-- Theorem:
+- **<u>Theorem</u>**: If L1 and L2 are regular languages over alphabet Σ then L1 ∩ L2 is a regular language
 
-  - Proof:
+  - **<u>Proof</u>**: Since L1 and L2 are regular languages there exists finite automata M1 and M2 with L1 = L(M1) and L2 = L(M2)
 
-  - Idea:
+  - **<u>Idea</u>**: Construct a DFA M that accepts exactly the strings accepted by M1 and M2; similar to previous proof but need to pay attention what strings must be accepted by M
 
-#### Concatenation
+Let M1 = (Q1, Σ, 𝛿1, q1, F1) and M2 = (Q2, Σ, 𝛿2, q2, F2). We construct M = (Q, Σ, 𝛿, q0, F) as follows:
+- Q = {(r1,r2) | r1 ∈ Q1, r2 ∈ Q2}
+- For each (r1,r2) ∈ Q and each a ∈ Σ: 𝛿((r1,r2), a) = (𝛿1(r1,a),𝛿2(r2,a))
+- q0 = (q1,q2)
+- F = {(r1,r2) | r1 ∈ F1 and r2 ∈ F2}
+
+**<u>Therefore</u>**, M recognizes L_1 Intersect L_2
+
+#### Concatenation (NFA)
+
+- <u>**Theorem:**</u> If L1 and L2 are regular languages over alphabet Σ then L1 L2 is a regular language
+  - <u>**Proof:**</u> Since L1 and L2 are regular languages there exist DFA M1 and M2 with L1 = L(M1) and L2 = L(M2)
+  - <u>**Idea:**</u> Construct a finite automaton M that accepts exactly all the strings of which the first part is accepted by M1 and the second part by M2
+
+- **<u>How can we concatenate?</u>**
+  - Nondeterminism
+    - Abstraction that allows to consider extension of ordinary computation
+    - Simultaneous execution paths are permitted
+    - Strings are accepted if there exists at least one execution path that is an accepting one
+    - Proving languages closed under concatenation
+  - Prove for nondeterministic fine automata and their corresponding language
+  - Show that nondeterministic finite automata accept the same class of language as deterministic ones, ex. regular languages.
+
+![image-20230611200639740](assets/image-20230611200639740.png)
+
+# Non-deterministic Finite Automata (NFA)
+
+- Transitions go from states to **sets of states**
+- Starting from a state *q* and reading a symbol *a* can have transitions into more than one state
+- The transition function is denoted as 𝛿: Q ⨉ (Σ ∪ {ε}) → P(Q)
+- We allow empty transitions
+  - Do not read any symbols from input
+
+## Formal Definition Nondeterministic Finite Automaton
+
+A nondeterministic finite automaton (NFA) is a 5-tuple (Q, Σ, 𝛿, q0, F) with:
+
+1. Q is a finite set of states 
+2. Σ is an alphabet 
+3.  Function 𝛿: Q⨉(Σ ∪{ε})→P(Q) is the transition function 
+4. q0 ∈ Q is the start state 
+5. F ⊆ Q is the set of accept (or final) states
+
+## NFA: Computation
+
+- Let M = (Q, Σ, 𝛿, q0, F) be an NFA and w = w1w2 … wn a string over Σ. Then M accepts w if we can write w = y1y2 … ym with yi ∈ Σ ∪{ } and there is a sequence of states r0, r2,…, rm, ri ∈ Q, such that ϵ
+  1. r0 = q0
+  2. ri+1 ∈ 𝛿(ri, yi+1)
+  3. rm ∈ F
+
+Then M recognizes L if L = L(M) = {w ∈ Σ* | M accepts w}
+
+- If a machine M does not accept any string, then L(M) = ∅
+
+## NFA Example
+
+![image-20230611223124255](assets/image-20230611223124255.png)
+
+## NFAs and DFAs
+
+- A DFA can be considered a special case of NFA 
+- Formal definition of transition function is different
+
+## Example
+
+![image-20230611223154972](assets/image-20230611223154972.png)
 
 
 
-Proof continued
+## Equivalences of DFAs and NFAs
 
-Why does M recognize L_1 ∪ L_2?
+### DFAs and NFAs
+
+- Definition: Let M1 and M2 each be a DFA or NFA. Then we call M1 and M2 **equivalent** if L(M1) = L(M2)
+- **Observation:** For every deterministic finite automaton there exists an equivalent nondeterministic finite automaton
+
+## Show: For every deterministic finite automaton there exists an equivalent nondeterministic finite automaton
+
+Let M = (Q, Σ, 𝛿, qM, F) be a DFA. Then we can build NFA N = (Q’, Σ, 𝛿’, qN, F’) with L(M) = L(N) as follows:
+
+- Q’ := Q
+- qN := qM
+- F’ := F
+- 𝛿’: Q’ ⨉ (Σ ∪ {ε}) → P(Q’) with 𝛿’(q, a) := {𝛿(q, a)} for all a ∈ Σ, 𝛿’(q, ε) := ∅
+
+> In summary, the expression defines the transition function 𝛿' of the NFA N based on the transition function 𝛿 of the original DFA M. It captures the transitions on input symbols from Σ and includes ε-transitions, while ensuring that each transition from a state results in a set of next states in the NFA.
+
+## Equivalence of NFAs & DFAs
+
+- **Theorem**: For every NFA there exists an equivalent DFA
+
+### Theorem: For every NFA there exists an equivalent DFA
+
+**Proof. Plan:** Given NFA N = (Q, Σ, 𝛿, q0, F), construct DFA D = (QD, Σ, 𝛿D, qD, FD) with L(N) = L(D).
+
+For any given string to be processed, the DFA has to have a unique sequence of states that represents all possible state sequences for in the NFA.
+
+**Idea:** Build D such that it simulates the computation of N.
+
+**Caution:** Do not miss any possible computation of N in the simulation. When defining states QD for D, create a state for every possible subset of Q. Define 𝛿D for all those states in QD and all input symbols. For now, ignore ε-transitions in N, i.e., we assume N does not have any ε-transitions. We will deal with them later.
+
+**Building D**
+
+- Given NFA N = (Q, Σ, 𝛿, q0, F)
+- Build DFA D = (QD, Σ, 𝛿D, qD, FD)
+- QD := P(Q), qD := {q0}
+- FD: set of all subsets of Q that contain a final state of F
+- Definition of 𝛿D:
+  - Let state S ∈ QD be a state of DFA D and let a ∈ Σ
+  - Recall S ⊆ Q
+  - 𝛿D(S, a) := {q ∈ Q | q ∈ 𝛿(s, a) for some s ∈ S}
+- FD := {S ∈ QD | there exists a q ∈ S with q ∈ F}, i.e., FD = {S ∈ QD | S ∩ F ≠ ∅}
+
+### Modify construction to also simulate NFAs with ϵ -transitions
+
+For any S ∈ QD, let E(S) = {q | q can be reached from some state in S by traveling 0 or more ε-transitions (ε)}
+
+Modify D as follows:
+
+- qD := E({q0})
+- 𝛿D(S, a) := {q ∈ Q | q ∈ E(𝛿(s, a)) for some s ∈ S}
+
+### Summary: Building D
+
+Given NFA N = (Q, Σ, 𝛿, q0, F)
+
+- Build DFA D = (QD, Σ, 𝛿D, qD, FD)
+- QD := P(Q), qD := E({q0})
+- FD: set of all subsets of Q that contain a final state of F
+- Definition of 𝛿D:
+  - Let S ∈ QD, a ∈ Σ
+  - E(S) = {q | q can be reached from some state in S by traveling 0 or more ε-transitions (ε)}
+  - 𝛿D(S, a) := {q ∈ Q | q ∈ E(𝛿(s, a)) for some s ∈ S}
+- FD := {S ∈ QD | S ∩ F ≠ ∅}
+
+## NFAs and DFAs
+
+- Since NFAs and DFAs produce the same set of languages we know:
+- The languages recognized by NFAs is exactly the set of regular languages
+
+## Regular Languages: Closure Properties
+
+**Theorem:** If L1 and L2 are regular languages over alphabet Σ, then L1 L2 is a regular language.
+
+**Proof:** Since L1 and L2 are regular languages, there exist deterministic finite automata M1 and M2 with L1 = L(M1) and L2 = L(M2).
+
+**Idea:** Construct a nondeterministic finite automaton M that accepts exactly the strings where the first part is accepted by M1 and the second part is accepted by M2.
+
+In Markdown, the text is formatted using headings and bullet points to present the theorem statement, the proof plan, and the idea behind constructing the NFA M.
+
+### Proof: Regular Languages are closed under concatenation
+
+![image-20230611225341016](assets/image-20230611225341016.png)
+
+**M** inherits all states from DFAs M1 and M2 with the following properties:
+
+- M's start state is M1's start state.
+- M's final states are M2's final states.
+- M's transitions consist of:
+  - All transitions of M1 and all transitions of M2.
+  - ε-transitions between each state that corresponds to a final state in M1 and the state that corresponds to M2's start state.
+
+### Example 1
+
+- Let L1, L2 be regular languages
+- Is  L = ((L1 ∪ L2)L1) ∩ L2 a regular language?
+
+> **<u>Answer:</u>**
+>
+> Yes, ((L1 ∪ L2)L1) ∩ L2 is a regular language.
+>
+> The expression ((L1 ∪ L2)L1) ∩ L2 represents the intersection of two regular languages, which is known to result in another regular language. Since L1 and L2 are both regular languages, their union (L1 ∪ L2) is also a regular language. Then, taking the concatenation of (L1 ∪ L2) with L1, denoted as (L1 ∪ L2)L1, results in another regular language. Finally, intersecting this language with L2, denoted as ((L1 ∪ L2)L1) ∩ L2, still yields a regular language.
+>
+> Therefore, ((L1 ∪ L2)L1) ∩ L2 is a regular language.
+
+# Regular Expressions
+
+## Definition: regular expression
+
+**R** is a regular expression if it is equal to:
+
+- **a**, for some **a** ∈ Σ (where Σ is the alphabet).
+- **∅** (denoting the empty language).
+- **(R1 ∪ R2)**, where **R1** and **R2** are regular expressions (representing the union of two regular expressions).
+- **(R1 R2)**, where **R1** and **R2** are regular expressions (representing the concatenation of two regular expressions).
+- **(R1*)**, where **R1** is a regular expression (representing the Kleene star operation on a regular expression).
+
+## Conventions: Regular Expressions
+
+- Parentheses can be omitted.
+- If no parentheses, the order of evaluation is: star, concatenation, union.
+- **R+** := **RR\***.
+
+## Summary: Regular Expressions
+
+- Regular expressions are defined inductively as follows:
+  - **a** (where **a** ∈ Σ, the alphabet), **ϵ**, **∅** (empty language).
+  - **(R1 ∪ R2)**, **(R1 R2)**, and **(R1\*)**, where **R1** and **R2** are regular expressions.
+- Parentheses can be omitted.
+- If no parentheses, evaluate in the order: star, concatenation, union.
+- Identities of regular expressions: **R+** := **RR\***, **R ∪ ∅** = **R**, **Rϵ** = **R**.
+
+## Definition: Language recognized by a regular expression 
+
+Assume **R1** and **R2** are regular expressions. The language **L(R)** for regular expression **R** is defined as:
+
+- If **R** = **a**, for some **a** ∈ Σ, then **L(R)** = {**a**}.
+- If **R** = **ϵ**, then **L(R)** = {**ϵ**}.
+- If **R** = **∅**, then **L(R)** = ∅.
+- If **R** = **(R1 ∪ R2)**, then **L(R)** = **L(R1) ∪ L(R2)**.
+- If **R** = **(R1 R2)**, then **L(R)** = **L(R1)L(R2)**.
+- If **R** = **(R1\*)**, then **L(R)** = **L(R1)\***.
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Major Topics for Midterm 1
 
 ## Checklist
 
-- [ ] Countable vs  Uncountable
-- [ ] Deterministic Finite Automaton (DFA)
-- [ ] DFA state minimization
-- [ ] Non-deterministic Finite Automata (NFA)
-- [ ] Equivalence of NFAs and DFAs
-- [ ] Reductions
-- [ ] Regular languages 
+- [x] Countable vs  Uncountable
+- [x] Deterministic Finite Automaton (DFA)
+- [x] DFA state minimization
+- [x] Non-deterministic Finite Automata (NFA)
+- [x] Equivalence of NFAs and DFAs
+- [x] Reductions
+- [x] Regular languages 
 - [ ] Closure properties of regular languages
 - [ ] Regular languages are closed under concatenation
 - [ ] Non-regular languages
@@ -887,23 +1104,161 @@ Why does M recognize L_1 ∪ L_2?
 
 
 
+## Regular, non-regular and context free languages
+
+1. **<u>Regular Language:</u>**
+   - Description: Regular languages are the simplest and most restricted language class. They can be described by regular expressions or recognized by finite automata, such as deterministic finite automata (DFAs) or non-deterministic finite automata (NFAs).
+   - Regular expressions: Regular expressions provide a concise way to describe patterns or rules for constructing strings in a language. They consist of a combination of symbols and operators, such as concatenation, union, and Kleene closure.
+   - Finite automata: DFAs and NFAs are computational models used to recognize regular languages. DFAs have a unique transition for each state and input symbol, while NFAs can have multiple transitions for a given state and input symbol.
+2. **<u>Non-regular Language:</u>**
+   - Description: Non-regular languages are those that cannot be recognized by regular expressions or finite automata. They are more complex than regular languages and exhibit additional structural or dependency properties that cannot be captured by finite-state machines.
+   - Applicability: Since non-regular languages cannot be recognized by regular expressions or finite automata, there is no specific automaton that is applicable to this language class.
+3. **<u>Context-free Language:</u>**
+   - Description: Context-free languages are a broader class of languages that can be described by context-free grammars. These languages possess a hierarchical or nested structure and can be recognized by pushdown automata (PDAs).
+   - Context-free grammars: Context-free grammars consist of a set of production rules that specify how symbols can be replaced or expanded. These rules operate on non-terminal symbols and allow the generation of strings in a language.
+   - Pushdown automata: PDAs are computational models equipped with a stack data structure that can store and manipulate symbols. PDAs are capable of recognizing context-free languages by using the stack to keep track of context and make decisions during language recognition.
+
+It's important to note that the classification of a language into one of these language classes is based on the complexity of the language's structure and the computational power required to recognize it. Regular languages are the simplest, while non-regular languages are more complex, and context-free languages are more expressive and allow for more intricate patterns and dependencies.
+
+## DFA vs NFA
+
+The key differences between Non-deterministic Finite Automata (NFAs) and Deterministic Finite Automata (DFAs) are as follows:
+
+1. **<u>Transitions</u>**: NFAs can have multiple transitions for a given input symbol from a single state, while DFAs have exactly one transition for each input symbol from each state. In NFAs, the transition function allows for non-determinism, meaning that there can be multiple possible paths for a given input symbol.
+2. **<u>States</u>**: NFAs can have empty or null states, which means they can transition to a next state without consuming any input symbol. DFAs, on the other hand, do not have empty states and must always consume an input symbol for each transition.
+3. **<u>Acceptance</u>**: In NFAs, a word or input string is accepted if there exists at least one possible path that leads to an accepting state. In DFAs, a word is accepted only if there is a unique path from the initial state to an accepting state for that word.
+4. **<u>Representation</u>**: NFAs can be represented by directed graphs, where multiple transitions from a state for a single input symbol are represented by multiple edges. DFAs can also be represented by directed graphs, but each state has only one outgoing edge for each input symbol.
+5. **<u>Determinism</u>**: NFAs are non-deterministic, meaning that there can be multiple possible transitions for a given input symbol from a state. DFAs, as the name suggests, are deterministic, meaning that for a given input symbol and state, there is exactly one next state.
+6. **<u>Complexity</u>**: DFAs are generally simpler and easier to understand compared to NFAs because of their deterministic nature. NFAs can be more complex due to the presence of non-determinism and multiple possible paths.
+
+It's important to note that while NFAs and DFAs differ in these key aspects, they have equivalent computational power. That is, any language recognized by an NFA can also be recognized by a DFA, and vice versa.
+
+## DFA, NFA and PDA
+
+The key differences between Non-deterministic Finite Automata (NFAs), Deterministic Finite Automata (DFAs), and Pushdown Automata (PDAs) are as follows:
+
+1. **<u>Input Handling:</u>** Both NFAs and DFAs process input symbols one at a time and make transitions based on the current state and input symbol. However, PDAs, being more powerful, not only consider input symbols but also have access to a stack for additional processing.
+2. **<u>Stack Usage:</u>** PDAs utilize a stack, a Last-In-First-Out (LIFO) data structure, which allows them to store and retrieve symbols. The stack enables PDAs to perform context-sensitive operations and facilitates more complex language recognition compared to NFAs and DFAs, which do not have a stack component.
+3. **<u>Language Recognition</u>**: DFAs are the least powerful among the three, recognizing only regular languages. NFAs can recognize a broader class of languages, including regular languages as well as some non-regular languages. PDAs are even more powerful and can recognize context-free languages, a larger class of languages that includes regular languages and many additional languages.
+4. **<u>Determinism:</u>** DFAs are deterministic, meaning that for a given state and input symbol, there is a unique transition to the next state. NFAs, on the other hand, are non-deterministic, allowing multiple possible transitions for a given state and input symbol. PDAs can be deterministic or non-deterministic, depending on their transition rules.
+5. **<u>Stack Operations:</u>** PDAs have the ability to perform stack operations such as push (adding a symbol to the top of the stack), pop (removing the symbol from the top of the stack), and peek (observing the symbol at the top of the stack). These operations allow PDAs to keep track of context and make decisions based on the stack content during language recognition.
+6. **<u>Expressive Power:</u>** PDAs are more expressive than both NFAs and DFAs. While DFAs can recognize regular languages and NFAs can recognize some non-regular languages, PDAs can handle context-free languages, a broader class of languages that includes more complex structures and dependencies.
+
+Overall, the inclusion of a stack and the ability to perform stack operations make PDAs more powerful and capable of recognizing a wider range of languages compared to NFAs and DFAs, which operate solely based on the current state and input symbol.
+
 ## DFA, NFA and PSA Tuples
+
+## DFA (Deterministic Finite Automata)
 
 $$
 DFA = (Q, \Sigma, \delta, q_0, F)
 $$
 
+DFA Tuple: M = (Q, Σ, δ, q0, F)
+
+- Q: Set of states in the DFA.
+- Σ: Alphabet or set of input symbols.
+- δ: Transition function that maps a state and an input symbol to a next state.
+- q0: Initial state, the starting point of the DFA.
+- F: Set of accepting or final states indicating when the DFA accepts.
+
+#### Example
+
+- Q: {q0, q1, q2, q3}
+- Σ: {0, 1}
+- δ:
+  - δ(q0, 0) = q1
+  - δ(q0, 1) = q0
+  - δ(q1, 0) = q2
+  - δ(q1, 1) = q0
+  - δ(q2, 0) = q2
+  - δ(q2, 1) = q3
+  - δ(q3, 0) = q3
+  - δ(q3, 1) = q3
+- q0: q0
+- F: {q3}
+
+## NFA (Non-Deterministic Finite Automata)
+
 $$
 NFA = (Q, \Sigma, \delta, q_0, F)
 $$
 
+NFA Tuple: M = (Q, Σ, δ, q0, F)
+
+- Q: Set of states in the NFA.
+- Σ: Alphabet or set of input symbols.
+- δ: Transition function that maps a state, an input symbol, or an empty string to a set of next states.
+- q0: Initial state, the starting point of the NFA.
+- F: Set of accepting or final states indicating when the NFA accepts.
+
+#### Example
+
+- Q: {q0, q1, q2, q3}
+- Σ: {a, b}
+- δ:
+  - δ(q0, a) = {q1, q2}
+  - δ(q0, b) = {q0}
+  - δ(q1, a) = {q2}
+  - δ(q1, b) = {q0, q3}
+  - δ(q2, a) = {q2}
+  - δ(q2, b) = {q3}
+  - δ(q3, a) = {q3}
+  - δ(q3, b) = {q3}
+- q0: q0
+- F: {q3}
+
+## PDA (Pushdown Automata)
+
 $$
-PSA =(Q, \Sigma, \Gamma, \delta, q_0, Z, F)
+PDA =(Q, \Sigma, \Gamma, \delta, q_0, Z, F)
 $$
 
-## Topics / Definitions
+PDA Tuple: M = (Q, Σ, Γ, δ, q0, Z, F)
 
+- Q: Set of states in the PDA.
+- Σ: Alphabet or set of input symbols.
+- Γ: Stack alphabet or set of stack symbols.
+- δ: Transition function that maps a state, an input symbol, a stack symbol, or an empty string to a set of next states and stack operations.
+- q0: Initial state, the starting point of the PDA.
+- Z: Initial stack symbol, the symbol initially present at the bottom of the stack.
+- F: Set of accepting or final states indicating when the PDA accepts.
 
+#### Example
+
+- Q: {q0, q1, q2, q3}
+- Σ: {0, 1}
+- Γ: {A, B, C}
+- δ:
+  - δ(q0, 0, Z) = {(q1, AZ)}
+  - δ(q1, 1, A) = {(q2, λ)}
+  - δ(q2, 1, A) = {(q2, AA)}
+  - δ(q2, 0, A) = {(q3, λ)}
+- q0: q0
+- Z: Z
+- F: {q3}
+
+## Topics / Definitions / Terminology
+
+| Symbol | Meaning                                             | Explanation                                                |
+| ------ | --------------------------------------------------- | ---------------------------------------------------------- |
+| Q      | Set of states                                       | Represents the set of all possible states in the automaton |
+| Σ      | Alphabet or input symbols                           | Represents the set of input symbols or alphabet            |
+| δ      | Transition function                                 | Specifies the state transitions based on input symbols     |
+| q0     | Initial state                                       | Represents the starting state of the automaton             |
+| F      | Set of accepting or final states                    | Represents the set of states where the automaton accepts   |
+| ε      | Epsilon or empty symbol                             | Represents an empty transition or empty stack operation    |
+| P(Q)   | Power set of Q                                      | Represents the set of all possible subsets of Q            |
+| Stack  | LIFO (Last-In-First-Out) data structure in PDAs     | Used to store and manipulate symbols in PDAs               |
+| λ      | Lambda or empty string                              | Represents an empty string or the absence of symbols       |
+| ⊢      | Derivation or production rule symbol                | Denotes the derivation or production of a symbol or string |
+| #      | Bottom of the stack symbol (bottom marker) in PDAs  | Represents the bottom of the stack in PDAs                 |
+|        |                                                     | Pipe symbol                                                |
+| *      | Kleene closure or repetition operator               | Indicates zero or more repetitions of a symbol or string   |
+| +      | Positive closure or one or more repetition operator | Indicates one or more repetitions of a symbol or string    |
+| ?      | Optional or zero or one occurrence operator         | Indicates an optional presence of a symbol or string       |
+| .      | Concatenation symbol                                | Represents the concatenation of two symbols or strings     |
+| ()     | Parentheses                                         | Used to group symbols or expressions                       |
 
 | Topic                                    | Overview                                                     | Cheat Sheet                                                  |
 | ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -923,3 +1278,4 @@ $$
 | Pushdown Automata (PDA)                  | PDAs extend finite automata with a stack for memory, enabling the recognition of context-free languages. | - Formal Definition: 7-tuple (Q, Σ, Γ, δ, q0, Z, F).<br> - Stack Operations: Push, pop, and peek. |
 | Chomsky Normal Form                      | Chomsky Normal Form is a standard form for context-free grammars where all production rules have specific forms. | - Each production rule is either A → BC or A → a, where A, B, and C are non-terminals, and a is a terminal. |
 | Pumping Lemma for Context-free Languages | The Pumping Lemma for context-free languages is used to prove that certain languages are not context-free. | - Split strings into uvwxy, show how to pump, and find a contradiction.<br> - Context-free languages have restrictions on pumping. |
+
