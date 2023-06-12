@@ -685,9 +685,128 @@ We recap:
 
 
 
+# DFAs (Deterministic Finite Automata)
+
+## Language of a Deterministic Finite Automaton
+
+- Let M = (Q, Σ, 𝛿, q0, F) be a DFA and A be the set of all strings that M accepts
+  - A is called the language of machine M
+  - L(M) = A
+  - M recognizes language A
+
+> Note:
+>
+> A machine that accepts no string recognizes empty language ∅
+
+## Example: Language L(M) of DFA M
+
+L(M) = {w|w ∈ Σ* of length at least 1 where: if w starts with symbol 1 then w is of length at least 2}
+
+![image-20230611172509981](assets/image-20230611172509981.png)
+
+## DFA: Formal Definition of Computation
+
+Let M = (Q, Σ, 𝛿, q0, F) be a DFA and let w = w_1,w_2 … w_n be a
+string over . Then M accepts w if there is a sequence of states r_0,r_1,r_2, … , r_n in Q such that:
+
+1. r_0 = q_0
+2. 𝛿(r_i, w_i+1) = r_i+1
+3. r_n ∈ F
+
+M recognizes language L if L = L(M) = {w ∈ | M accepts w}
+
+- A language L is called a **regular language** if there exists a DFA that recognizes L
 
 
-# Major Topics (Midterm 1 Study Review)
+
+## Computation of DFA—Example Sequence of states for w = 001101
+
+![image-20230611172753025](assets/image-20230611172753025.png)
+
+## Computation of DFA—Example Sequence of states for w = 0011011
+
+![image-20230611172807648](assets/image-20230611172807648.png)
+
+## Regular languages
+
+- Given DFA M, language L(M) is **exactly the set of all strings that M accepts**
+- L(M) is a regular language
+
+## Example: Language of DFA M
+
+- L(M) = {w|w ∈ Σ* of length at least 1 where: if w starts with symbol 1 then w is of length at least 2}
+- L(M) is a regular language
+
+![image-20230611173006456](assets/image-20230611173006456.png)
+
+## Regular languages—what we know so far
+
+- **A language L is called a regular language if there exists a deterministic finite automaton that recognizes L**
+- The set of languages that are recognized by the set of all DFAs, the **regular languages**, is a **subset of the set of all languages**
+
+## Example 1: Is this a DFA?
+
+![image-20230611173116732](assets/image-20230611173116732.png)
+
+Answer: No
+
+## Example 2: Is this a DFA?
+
+![image-20230611173139354](assets/image-20230611173139354.png)
+
+Answer: yes
+
+## Regular Languages: Closure Properties
+
+- Definition: closed
+- Operations: union, intersection, concatenation
+
+## Closure Properties for Sets
+
+- A **set** is **closed** under some operation if applying that operation to elements of the set returns another element of the set
+- If a certain operation applied to **any language** in a certain **class of languages** (ex. the class of regular languages) produces a result that is also in that same class, then the language class (eg, the class of regular languages) is **closed under this operation**
+
+## Regular Languages: Closure Properties
+
+- We show: regular languages are closed under
+  - Union 
+  - Intersection
+  - Concatenation
+
+#### Union
+
+- **<u>Theorem</u>**: If L1 and L2 are regular languages over alphabet Σ then L1 ∪ L2 is a regular language. In other words: The class of regular languages is closed under the union operation
+
+  - **<u>Proof (Part A)</u>**: Since L_1 and L_2 are regular languages there exist deterministic finite automata M_1 and M_2 with L_1 = L(M1) and L_2 = L(M2)
+
+  - **<u>Idea</u>**: Construct DFA M that accepts exactly the strings accepted by M_1 and the strings accepted by M_2
+
+  - <u>**Proof (Part B):**</u> Since L_1 and L_2 are regular languages there exist DFA M_1 and M_2 with L_1 = L(M_1) and L_2 = L(M_2)
+
+  - <u>**Idea:**</u> Construct DFA M that accepts exactly the strings accepted by M1 and the strings accepted by M2
+    - We do this by simulating both machines concurrently, and accepting if (at least) one of them accepts
+
+![image-20230611174139815](assets/image-20230611174139815.png)
+
+![image-20230611174346572](assets/image-20230611174346572.png)
+
+#### Intersection
+
+- Theorem:
+
+  - Proof:
+
+  - Idea:
+
+#### Concatenation
+
+
+
+Proof continued
+
+Why does M recognize L_1 ∪ L_2?
+
+# Major Topics for Midterm 1
 
 ## Checklist
 
