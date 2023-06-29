@@ -35,16 +35,6 @@
 - Variants of Turing machines
 - Nondeterministic Turing machines, Enumerators, Church-Turing Thesis
 
-> **<u>Note:</u>**
->
-> Order to learn the topics:
->
-> 1. Regular Expressions
-> 2. Regular Languages
-> 3. Non-Regular Languages
-> 4. Context-Free Grammars
-> 5. Context-Free Languages
-
 | Day  | Topics                                                       | Study Guide                                                  |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 1    | Countability                                                 | - Countability: ability to assign a unique counting number to elements of a set. Understand countable sets, infinities, and cardinality. |
@@ -54,6 +44,16 @@
 | 5    | Pumping Lemma for Regular Languages                          | - Pumping Lemma: proving languages are not regular. Understanding its statement, application, and limitations. |
 | 6    | Reduction II, Context-Free Grammars, CFG, CNF, PDA           | - Concept of Reduction II: reducing problems. - Context-free grammars: definition, productions, and derivation trees. - CNF and PDA. |
 | 7    | Context-Free Languages, Pumping Lemma for CFLs, Turing Machines | - Pumping Lemma for CFLs. - Turing Machines: components, halting, decidability. - Variants, NTMs, enumerators, and Church-Turing Thesis. |
+
+> **<u>Note:</u>**
+>
+> Order to learn the specific topics:
+>
+> 1. Regular Expressions
+> 2. Regular Languages
+> 3. Non-Regular Languages
+> 4. Context-Free Grammars
+> 5. Context-Free Languages
 
 ## Content 
 
