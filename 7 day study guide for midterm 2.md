@@ -3,6 +3,8 @@
 > Date of Midterm: July 10th 2023
 >
 > Location: ECS 123
+>
+> Course: CSC 320
 
 ## Checklist
 
