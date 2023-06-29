@@ -35,7 +35,7 @@
 
 > **<u>Note:</u>**
 >
-> Order to learn the topics because I'm fuckin stupid:
+> Order to learn the topics:
 >
 > 1. Regular Expressions
 > 2. Regular Languages
